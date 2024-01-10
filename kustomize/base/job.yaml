@@ -1,0 +1,39 @@
+---
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: benk
+  namespace: benk
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: benk
+          image: $(benkImage)
+          imagePullPolicy: $(benkImagePullPolicy)
+          command:
+          - /app/benk/benk.py
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "1"
+          envFrom:
+          - configMapRef:
+              name: benk
+          volumeMounts:
+          - name: templates
+            mountPath: /templates
+          - name: output
+            mountPath: /output
+      volumes:
+        - name: templates
+          projected:
+            sources:
+            - configMap:
+                name: workloads
+            - configMap:
+                name: fio
+        - name: output
+          emptyDir:
+            medium: Memory
