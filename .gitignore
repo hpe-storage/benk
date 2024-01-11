@@ -130,7 +130,7 @@ dmypy.json
 # Benk
 kustomize/base/config.env
 1.py
-kustomize/overlays/
+kustomize/overlays/*
 !kustomize/overlays/default
 TODO
 *kubeconfig
