@@ -1,0 +1,7 @@
+resources:
+  - ../../base
+configMapGenerator:
+- name: benk
+  envs:
+  - config.env
+  behavior: merge
