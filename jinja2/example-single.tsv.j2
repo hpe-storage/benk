@@ -1,0 +1,4 @@
+{{ meta.log }}	Provisioned Controller (median)	Destroyed PVC (median)	Provisioning total runtime	Destruction total runtime
+{% for run in log %}
+{{ run.benk.metadata.parameters.config.workloadInstances }}	{{ run.benk.controllers.metadata.provisioned.median }}	{{ run.benk.pvcs.metadata.destruction.median }}	{{ run.benk.metadata.provisioning.runtime }}	{{ run.benk.metadata.destruction.runtime }}
+{% endfor %}

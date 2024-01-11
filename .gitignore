@@ -133,10 +133,10 @@ kustomize/base/config.env
 kustomize/overlays/
 !kustomize/overlays/default
 TODO
-/*kubeconfig
-/logs/
-!/logs/README.md
+*kubeconfig
+logs/*
+!logs/README.md
 /kustomize/base/storageclass.yaml
-/jinja2/
-!/jinja2/README.md
-!/jinja2/example-*
+jinja2/*
+!jinja2/README.md
+!jinja2/example-*
