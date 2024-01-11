@@ -129,14 +129,14 @@ dmypy.json
 
 # Benk
 kustomize/base/config.env
+kustomize/base/storageclass.yaml
 1.py
-kustomize/overlays/*
-!kustomize/overlays/default
 TODO
 *kubeconfig
+kustomize/overlays/*
+!kustomize/overlays/default
 logs/*
 !logs/README.md
-/kustomize/base/storageclass.yaml
 jinja2/*
 !jinja2/README.md
 !jinja2/example-*
