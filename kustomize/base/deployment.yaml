@@ -1,0 +1,37 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: benk-placeholder
+  labels:
+    app: benk
+spec:
+  replicas: benk-placeholder
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: benk
+  template:
+    metadata:
+      labels:
+        app: benk
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: csi.hpe.com/hpe-nfs
+                operator: NotIn
+                values:
+                - "true"
+      containers:
+      - name: benk
+        image: benk-placeholder
+        ports:
+        - containerPort: 8765
+        command: 
+        - fio
+        args:
+        - --server

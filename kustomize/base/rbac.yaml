@@ -1,0 +1,52 @@
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: benk
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "persistentvolumes" ]
+    verbs: ["get", "watch", "list"]
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: benk
+  name: benk
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "persistentvolumeclaims" ]
+    verbs: [ "*" ]
+  - apiGroups: [ "" ]
+    resources: [ "pods" ]
+    verbs: [ "list" ]
+  - apiGroups: [ "apps" ]
+    resources: [ "deployments" ]
+    verbs: [ "*" ]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: benk
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: benk
+roleRef:
+  kind: ClusterRole
+  name: benk
+  apiGroup: rbac.authorization.k8s.io
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: benk
+  namespace: benk
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: benk
+roleRef:
+  kind: Role
+  name: benk
+  apiGroup: rbac.authorization.k8s.io

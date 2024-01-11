@@ -1,0 +1,63 @@
+namespace: benk
+resources:
+- rbac.yaml
+- storageclass.yaml
+- secret.yaml
+- job.yaml
+configMapGenerator:
+- name: workloads
+  files:
+  - deployment.yaml
+- name: benk
+  envs: 
+  - config.env
+- name: fio
+  files:
+  - fiospec.ini
+generatorOptions:
+  disableNameSuffixHash: true
+configurations:
+- values.yaml
+vars:
+- name: sutServiceName
+  objref:
+    kind: ConfigMap
+    name: benk
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.sutServiceName
+- name: sutBackendIP
+  objref:
+    kind: ConfigMap
+    name: benk
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.sutBackendIP
+- name: sutUsername
+  objref:
+    kind: ConfigMap
+    name: benk
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.sutUsername
+- name: sutPassword
+  objref:
+    kind: ConfigMap
+    name: benk
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.sutPassword
+- name: benkImage
+  objref:
+    kind: ConfigMap
+    name: benk
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.benkImage
+- name: benkImagePullPolicy
+  objref:
+    kind: ConfigMap
+    name: benk
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.benkImagePullPolicy

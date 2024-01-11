@@ -1,0 +1,4 @@
+{{ meta.alog }}+{{ meta.blog }}	IOPS A (total)	IOPS B (total)	Average Latency A (ms)	Average Latency B (ms)
+{% for _ in a %}
+{{ a[loop.index0].benk.metadata.parameters.config.workloadReplicas }}	{{ a[loop.index0].benk.fio.data.read.iops + a[loop.index0].benk.fio.data.write.iops }}	{{ b[loop.index0].benk.fio.data.read.iops + b[loop.index0].benk.fio.data.write.iops }}	{{ (a[loop.index0].benk.fio.data.read.clat_ns.mean + a[loop.index0].benk.fio.data.write.clat_ns.mean / 2) / 1000000 }}	{{ (b[loop.index0].benk.fio.data.read.clat_ns.mean + b[loop.index0].benk.fio.data.write.clat_ns.mean / 2) / 1000000 }}
+{% endfor %}

@@ -1,0 +1,7 @@
+varReference:
+- kind: Secret
+  path: stringData
+- kind: Job
+  path: spec/template/spec/containers/image
+- kind: Job
+  path: spec/template/spec/containers/imagePullPolicy

@@ -1,0 +1,23 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+  name: benk
+provisioner: csi.hpe.com
+parameters:
+  csi.storage.k8s.io/fstype: xfs
+  csi.storage.k8s.io/controller-expand-secret-name: system-under-test
+  csi.storage.k8s.io/controller-expand-secret-namespace: benk
+  csi.storage.k8s.io/controller-publish-secret-name: system-under-test
+  csi.storage.k8s.io/controller-publish-secret-namespace: benk
+  csi.storage.k8s.io/node-publish-secret-name: system-under-test
+  csi.storage.k8s.io/node-publish-secret-namespace: benk
+  csi.storage.k8s.io/node-stage-secret-name: system-under-test
+  csi.storage.k8s.io/node-stage-secret-namespace: benk
+  csi.storage.k8s.io/provisioner-secret-name: system-under-test
+  csi.storage.k8s.io/provisioner-secret-namespace: benk
+  description: "Volume created by benk"
+reclaimPolicy: Delete
+allowVolumeExpansion: true
