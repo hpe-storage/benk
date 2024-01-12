@@ -44,7 +44,7 @@ Two helper shell scripts allows simple sequencing of multiple jobs and the repor
 Assumes `kustomize/base/config.env` and `kustomize/base/storagclass.yaml` exists along with a `Namespace` named "benk" on the cluster.
 
 ```text
-for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-${i}; done
+for i in {1..8}; do cp -a kustomize/overlays/default kustomize/overlays/mytest-${i}; done
 # Edit kustomize/overlays/mytest-*/config.env for each iteration
 ./sequencer.sh mytest-
 ./src/benk/outputter.py -l logs/run-mytest-*.log -t jinja2/example-single.tsv.j2
@@ -55,8 +55,8 @@ for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-
 Assumes `kustomize/base/config.env` and `kustomize/base/storagclass.yaml` exists along with a `Namespace` named "benk" on the cluster.
 
 ```text
-for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-a-${i}; done
-for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-b-${i}; done
+for i in {1..8}; do cp -a kustomize/overlays/default kustomize/overlays/mytest-a-${i}; done
+for i in {1..8}; do cp -a kustomize/overlays/default kustomize/overlays/mytest-b-${i}; done
 # Edit kustomize/overlays/mytest-*/config.env for each iteration
 ./sequencer.sh mytest-a-
 ./sequencer.sh mytest-b-

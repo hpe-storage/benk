@@ -1,0 +1,5 @@
+| Threads | A (MB/s) | B (MB/s) | Diff |
+| ------- | -------- | -------- | ---- |
+{% for _ in a %}
+| {{ "%-7s" | format(a[loop.index0].benk.metadata.parameters.config.workloadThreads) }} | {{ "%-8s" | format(((a[loop.index0].benk.fio.data.read.bw + a[loop.index0].benk.fio.data.write.bw) / 1024) | round | int) }} | {{ "%-8s" | format(((b[loop.index0].benk.fio.data.read.bw + b[loop.index0].benk.fio.data.write.bw) / 1024) | round | int) }} | {{ "%-3sx" | format((((b[loop.index0].benk.fio.data.read.bw + b[loop.index0].benk.fio.data.write.bw) / 1024) / ((a[loop.index0].benk.fio.data.read.bw + a[loop.index0].benk.fio.data.write.bw) / 1024)) | round(1)) }} |
+{% endfor %}
