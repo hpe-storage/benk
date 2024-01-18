@@ -16,7 +16,9 @@ Benk uses [FIO](https://github.com/axboe/fio) in client and server mode.
 
 # Synopsis
 
-Starter examples below. Build your own library of configuration files and reporting templates.
+Starter examples below. Build your own library of configuration files and reporting templates. A walkthrough of some of these examples are available in a blog post on HPE Developer Community.
+
+- [Working with Benk: A storage provisioning and IO performance benchmark suite for Kubernetes](https://developer.hpe.com/blog/working-with-benk-a-storage-provisioning-and-io-performance-benchmark-suite-for-kubernetes/)
 
 ## Hello World
 
@@ -44,7 +46,7 @@ Two helper shell scripts allows simple sequencing of multiple jobs and the repor
 Assumes `kustomize/base/config.env` and `kustomize/base/storagclass.yaml` exists along with a `Namespace` named "benk" on the cluster.
 
 ```text
-for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-${i}; done
+for i in {1..8}; do cp -a kustomize/overlays/default kustomize/overlays/mytest-${i}; done
 # Edit kustomize/overlays/mytest-*/config.env for each iteration
 ./sequencer.sh mytest-
 ./src/benk/outputter.py -l logs/run-mytest-*.log -t jinja2/example-single.tsv.j2
@@ -55,8 +57,8 @@ for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-
 Assumes `kustomize/base/config.env` and `kustomize/base/storagclass.yaml` exists along with a `Namespace` named "benk" on the cluster.
 
 ```text
-for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-a-${i}; done
-for i in `seq 8`; do cp -a kustomize/overlays/default kustomize/overlays/mytest-b-${i}; done
+for i in {1..8}; do cp -a kustomize/overlays/default kustomize/overlays/mytest-a-${i}; done
+for i in {1..8}; do cp -a kustomize/overlays/default kustomize/overlays/mytest-b-${i}; done
 # Edit kustomize/overlays/mytest-*/config.env for each iteration
 ./sequencer.sh mytest-a-
 ./sequencer.sh mytest-b-

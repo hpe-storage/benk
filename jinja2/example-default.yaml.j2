@@ -1,0 +1,12 @@
+---
+report:
+  name: Example YAML template
+  logfile: {{ meta.log }}
+  jobs:
+{% for run in log %}
+    - threads: {{ run.benk.fio.metadata.job.numjobs }}
+      runtime: {{ (run.benk.metadata.destruction.runtime + run.benk.metadata.provisioning.runtime) | round | int }}s
+      iops: {{ (run.benk.fio.data.read.iops + run.benk.fio.data.write.iops) | round | int }}
+      bandwidth: {{ ((run.benk.fio.data.read.bw + run.benk.fio.data.write.bw) / 1024) | round | int }}MB/s
+      bs: {{ run.benk.fio.metadata.job.bs }}
+{% endfor %}
