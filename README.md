@@ -16,7 +16,9 @@ Benk uses [FIO](https://github.com/axboe/fio) in client and server mode.
 
 # Synopsis
 
-Starter examples below. Build your own library of configuration files and reporting templates.
+Starter examples below. Build your own library of configuration files and reporting templates. A walkthrough of some of these examples are available in a blog post on HPE Developer Community.
+
+- [Working with Benk: A storage provisioning and IO performance benchmark suite for Kubernetes](https://developer.hpe.com/blog/working-with-benk-a-storage-provisioning-and-io-performance-benchmark-suite-for-kubernetes/)
 
 ## Hello World
 
