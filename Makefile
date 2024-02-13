@@ -1,6 +1,3 @@
-SHELL              := env BENK_FIO_VERSION=$(BENK_FIO_VERSION) $(SHELL)
-BENK_FIO_VERSION   ?= 3.34
-
 SHELL              := env BENK_ALMALINUX_TAG=$(BENK_ALMALINUX_TAG) $(SHELL)
 BENK_ALMALINUX_TAG ?= 9.3
 
@@ -16,9 +13,8 @@ SHELL : env PUSH=$(PUSH) $(SHELL)
 PUSH ?= 
 
 image:
-	docker-buildx build --platform=linux/amd64,linux/arm64 \
+	docker buildx build --platform=linux/amd64,linux/arm64 \
 		--provenance=false --progress plain \
-		--build-arg BENK_FIO_VERSION=$(BENK_FIO_VERSION) \
 		--build-arg BENK_ALMALINUX_TAG=$(BENK_ALMALINUX_TAG) \
 		$(PUSH) \
 		-t $(IMAGE) .
