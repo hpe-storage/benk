@@ -33,7 +33,7 @@ cp kustomize/base/storageclass-dist.yaml kustomize/base/storageclass.yaml
 # to fit the environment under test
 kubectl create ns benk
 kubectl apply -k kustomize/overlays/default
-kubectl wait -n benk  --for=condition=complete job/benk
+kubectl wait -n benk --timeout=300s --for=condition=complete job/benk
 kubectl logs -n benk job/benk | jq
 ```
 
@@ -109,7 +109,7 @@ See [examples](examples) if you want to contribute examples.
 
 # Building
 
-A Dockerfile and Makefile is readily available to rebuild the image with `docker-buildx` targeting amd64 and arm64.
+A Dockerfile and Makefile is readily available to rebuild the image with `docker buildx` targeting amd64 and arm64.
 
 ```text
 export CONTAINER_REGISTRY=quay.io/yourorg/benk
