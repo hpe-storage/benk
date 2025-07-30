@@ -23,6 +23,9 @@ rules:
   - apiGroups: [ "apps" ]
     resources: [ "deployments" ]
     verbs: [ "*" ]
+  - apiGroups: [ "kubevirt.io" ]
+    resources: [ "virtualmachines" ]
+    verbs: [ "*" ]
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1

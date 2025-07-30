@@ -1,3 +1,4 @@
 kubernetes
 python-dotenv
 jinja2
+pyaml

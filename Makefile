@@ -1,5 +1,5 @@
-SHELL              := env BENK_ALMALINUX_TAG=$(BENK_ALMALINUX_TAG) $(SHELL)
-BENK_ALMALINUX_TAG ?= 9.3
+SHELL              := env BENK_DISTRO_TAG=$(BENK_DISTRO_TAG) $(SHELL)
+BENK_DISTRO_TAG    ?= 42
 
 SHELL              := env CONTAINER_REGISTRY=$(CONTAINER_REGISTRY) $(SHELL)
 CONTAINER_REGISTRY ?= quay.io/datamattsson/benk
@@ -13,9 +13,9 @@ SHELL : env PUSH=$(PUSH) $(SHELL)
 PUSH ?= 
 
 image:
-	docker buildx build --platform=linux/amd64,linux/arm64 \
+	docker-buildx build --platform=linux/amd64,linux/arm64 \
 		--provenance=false --progress plain \
-		--build-arg BENK_ALMALINUX_TAG=$(BENK_ALMALINUX_TAG) \
+		--build-arg BENK_DISTRO_TAG=$(BENK_DISTRO_TAG) \
 		$(PUSH) \
 		-t $(IMAGE) .
 

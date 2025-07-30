@@ -1,0 +1,25 @@
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: benk
+  namespace: benk
+spec:
+  source:
+    registry:
+      url: docker://quay.io/datamattsson/benk-virt@sha256:c12cba1ecccbf7f9aebc6a6ea1d6d344fd05f9f451d1cc2955f148a9ed4c390e
+  storage:
+    resources:
+      requests:
+        storage: 30Gi
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataSource
+metadata:
+  name: benk
+  namespace: benk
+spec:
+  source:
+    pvc:
+      name: benk
+      namespace: benk

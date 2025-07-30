@@ -1,5 +1,5 @@
-ARG BENK_ALMALINUX_TAG
-FROM --platform=$BUILDPLATFORM public.ecr.aws/docker/library/almalinux:${BENK_ALMALINUX_TAG} AS build
+ARG BENK_DISTRO_TAG
+FROM --platform=$BUILDPLATFORM public.ecr.aws/docker/library/fedora:${BENK_DISTRO_TAG} AS build
 ADD requirements.txt .
 RUN dnf install -y python python-pip fio && \
     mkdir /app /output && \
