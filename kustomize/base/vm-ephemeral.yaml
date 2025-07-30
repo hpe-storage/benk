@@ -1,0 +1,46 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  creationTimestamp: null
+  name: benk-placeholder
+  labels:
+    app: benk
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels:
+        app: benk
+    spec:
+      domain:
+        devices:
+          disks:
+          - name: bootme
+            disk:
+              bus: virtio
+        memory:
+          guest: benk-placeholder
+      readinessProbe:
+        tcpSocket:
+          port: 8765
+        resources: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+      - name: bootme
+        containerDisk:
+          image: benk-placeholder
+      - name: cloudinitdisk # index 1 is hardcoded, do not change
+        cloudInitNoCloud:
+          userData: |
+            #cloud-config
+            chpasswd:
+              expire: false
+              users:
+              - {name: fedora, password: letmein, type: text}
+            write_files:
+            - encoding: b64
+              content: W1VuaXRdCkRlc2NyaXB0aW9uPUJlbmsgRklPIHNlcnZlcgpBZnRlcj1uZXR3b3JrLnRhcmdldApTdGFydExpbWl0SW50ZXJ2YWxTZWM9MAoKW1NlcnZpY2VdCkVudmlyb25tZW50PSJIT1NUTkFNRT1iZW5rLSVtIgpUeXBlPXNpbXBsZQpSZXN0YXJ0PWFsd2F5cwpSZXN0YXJ0U2VjPTEKVXNlcj1yb290CkV4ZWNTdGFydD0vdXNyL2Jpbi9lbnYgZmlvIC0tc2VydmVyCgpbSW5zdGFsbF0KV2FudGVkQnk9bXVsdGktdXNlci50YXJnZXQK
+              owner: root:root
+              path: /etc/systemd/system/fio.service
+              permissions: '0644'
+            runcmd:

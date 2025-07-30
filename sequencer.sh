@@ -26,7 +26,7 @@ for i in ${overlays}/${1}*; do
 	kubectl replace --force -k ${i}
 
 	# Wait
-	kubectl wait --for=condition=complete --timeout=7200s -n benk job/benk
+	kubectl wait --for=condition=complete --timeout=14400s -n benk job/benk
 	
 	# Extract
 	kubectl -n benk logs job/benk | tee -a ${BENK_OUTPUT_LOCATION}/run-${1}${now}.log

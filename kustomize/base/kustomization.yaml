@@ -8,6 +8,8 @@ configMapGenerator:
 - name: workloads
   files:
   - deployment.yaml
+  - vm.yaml
+  - vm-ephemeral.yaml
 - name: benk
   envs: 
   - config.env

@@ -92,7 +92,6 @@ class FioRunner:
         environ.update(self.config)
         
         shell = run(cmd, shell=True, check=False, capture_output=True, env=environ) 
-        
         raw = json.loads(shell.stdout)
 
         results['data'] = raw.get('client_stats')[-1]

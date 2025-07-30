@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: image-preloader
+  namespace: benk # Or the namespace where you want to cache images
+spec:
+  selector:
+    matchLabels:
+      app: image-preloader
+  template:
+    metadata:
+      labels:
+        app: image-preloader
+    spec:
+      containers:
+      - name: image-to-cache
+        image: quay.io/datamattsson/benk-virt:v0.0.3 # Replace with your image
+      - name: pause-container
+        image: k8s.gcr.io/pause:3.6 # A small, lightweight container to ensure pod runs

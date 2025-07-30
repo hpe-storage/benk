@@ -19,4 +19,4 @@ print('# Benk defaults\n\
 for k in sorted_params:
     if not benk.config.get(k):
         benk.config[k] = ''
-    print('# {key}={value}'.format(value=benk.config.get(k), key=k))
+    print(repr('# {key}="{value}"'.format(value=benk.config.get(k), key=k)).replace("'", ""))
