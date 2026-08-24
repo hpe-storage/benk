@@ -1,5 +1,5 @@
 SHELL              := env BENK_DISTRO_TAG=$(BENK_DISTRO_TAG) $(SHELL)
-BENK_DISTRO_TAG    ?= 42
+BENK_DISTRO_TAG    ?= 44
 
 SHELL              := env CONTAINER_REGISTRY=$(CONTAINER_REGISTRY) $(SHELL)
 CONTAINER_REGISTRY ?= quay.io/datamattsson/benk

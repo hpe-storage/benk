@@ -5,61 +5,101 @@ resources:
 - secret.yaml
 - job.yaml
 configMapGenerator:
-- name: workloads
-  files:
+- files:
   - deployment.yaml
   - vm.yaml
   - vm-ephemeral.yaml
-- name: benk
-  envs: 
+  name: workloads
+- envs:
   - config.env
-- name: fio
-  files:
+  name: benk
+- files:
   - fiospec.ini
+  name: fio
 generatorOptions:
   disableNameSuffixHash: true
 configurations:
 - values.yaml
-vars:
-- name: sutServiceName
-  objref:
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+replacements:
+- source:
+    fieldPath: data.sutServiceName
     kind: ConfigMap
     name: benk
-    apiVersion: v1
-  fieldref:
-    fieldpath: data.sutServiceName
-- name: sutBackendIP
-  objref:
+    version: v1
+  targets:
+  - fieldPaths:
+    - stringData.serviceName
+    select:
+      kind: Secret
+      name: system-under-test
+      namespace: benk
+      version: v1
+- source:
+    fieldPath: data.sutBackendIP
     kind: ConfigMap
     name: benk
-    apiVersion: v1
-  fieldref:
-    fieldpath: data.sutBackendIP
-- name: sutUsername
-  objref:
+    version: v1
+  targets:
+  - fieldPaths:
+    - stringData.backend
+    select:
+      kind: Secret
+      name: system-under-test
+      namespace: benk
+      version: v1
+- source:
+    fieldPath: data.sutUsername
     kind: ConfigMap
     name: benk
-    apiVersion: v1
-  fieldref:
-    fieldpath: data.sutUsername
-- name: sutPassword
-  objref:
+    version: v1
+  targets:
+  - fieldPaths:
+    - stringData.username
+    select:
+      kind: Secret
+      name: system-under-test
+      namespace: benk
+      version: v1
+- source:
+    fieldPath: data.sutPassword
     kind: ConfigMap
     name: benk
-    apiVersion: v1
-  fieldref:
-    fieldpath: data.sutPassword
-- name: benkImage
-  objref:
+    version: v1
+  targets:
+  - fieldPaths:
+    - stringData.password
+    select:
+      kind: Secret
+      name: system-under-test
+      namespace: benk
+      version: v1
+- source:
+    fieldPath: data.benkImage
     kind: ConfigMap
     name: benk
-    apiVersion: v1
-  fieldref:
-    fieldpath: data.benkImage
-- name: benkImagePullPolicy
-  objref:
+    version: v1
+  targets:
+  - fieldPaths:
+    - spec.template.spec.containers.0.image
+    select:
+      group: batch
+      kind: Job
+      name: benk
+      namespace: benk
+      version: v1
+- source:
+    fieldPath: data.benkImagePullPolicy
     kind: ConfigMap
     name: benk
-    apiVersion: v1
-  fieldref:
-    fieldpath: data.benkImagePullPolicy
+    version: v1
+  targets:
+  - fieldPaths:
+    - spec.template.spec.containers.0.imagePullPolicy
+    select:
+      group: batch
+      kind: Job
+      name: benk
+      namespace: benk
+      version: v1

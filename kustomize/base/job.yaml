@@ -11,8 +11,8 @@ spec:
       restartPolicy: Never
       containers:
         - name: benk
-          image: $(benkImage)
-          imagePullPolicy: $(benkImagePullPolicy)
+          image: benkImage_PLACEHOLDER
+          imagePullPolicy: benkImagePullPolicy_PLACEHOLDER
           command:
           - /app/benk/benk.py
           env:

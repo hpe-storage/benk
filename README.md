@@ -67,7 +67,7 @@ for i in {1..8}; do cp -a kustomize/overlays/default kustomize/overlays/mytest-b
 
 ### Multi-cluster testing
 
-Assumes `kustomize/base/config.env` and `kustomize/base/storagclass.yaml` exists along with a `Namespace` named "benk" on each cluster.
+Assumes `kustomize/base/config.env` and `kustomize/base/storageclass.yaml` exists along with a `Namespace` named "benk" on each cluster.
 
 Running multiple workloads across multiple clusters simultaneously but independently, it's possible to do so by naming kubeconfig files like this: `cluster-N-kubeconfig` where N starts with a "1" sequenced in order up to the last cluster.
 
@@ -88,6 +88,17 @@ Each cluster has its on log file (omitting staggered starts):
 ```
 
 **Note:** It's not possible to run sequences on multiple clusters, single overlays only for now.
+
+# Benk with KubeVirt VMs
+
+The default workload controller type is using a `Deployment`. This can be changed into using either a cloned from a PVC KubeVirt VM or using an ephemeral KubeVirt VM. Change the `workloadController` setting to either "vm" or "vm-ephemeral". When using ephemeral VMs it's recommended to warm up each of the worker nodes image cache with the VM image before starting the first job, this will reduce boot times significantly as each controller will perform the initial pull simultaneously otherwise.
+
+```text
+kubectl apply -f kustomize/base/preloader.yaml
+```
+
+The "image-preloader" `Daemonset` will sit at "1/2" with a "CreateContainerError" when ready. This is normal.
+
 
 # Example Configurations
 
@@ -118,6 +129,19 @@ make PUSH=--push image
 ```
 
 A custom image can be set in `kustomize/base/config.env`.
+
+The VM-based image of Benk is built from Fedora and only needs `fio` installed. Note that Benk the client and Benk the server is not allowed to have any `fio` API version skew.
+
+```text
+virt-customize -a Fedora-Cloud-Base-Generic-44-1.7.x86_64.qcow2 --install fio
+```
+
+Create a new `Dockerfile`.
+
+```text
+FROM scratch
+ADD Fedora-Cloud-Base-Generic-44-1.7.x86_64.qcow2 /disk/
+```
 
 # Contributing
 

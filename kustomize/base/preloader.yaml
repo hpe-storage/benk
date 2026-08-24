@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: image-to-cache
-        image: quay.io/datamattsson/benk-virt:v0.0.3 # Replace with your image
+        image: quay.io/datamattsson/benk-virt:v0.0.4 # Replace with your image
       - name: pause-container
         image: k8s.gcr.io/pause:3.6 # A small, lightweight container to ensure pod runs
